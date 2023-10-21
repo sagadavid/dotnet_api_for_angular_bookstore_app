@@ -1,0 +1,14 @@
+﻿namespace dotnet_api_for_angular_bookstore_app.Models
+{
+    public class BookModel
+    {
+        public int Id { get; set; }
+        public string Tittle { get; set; }
+        public int TotalPages { get; set; }
+        public string Authory { get; set; }
+        public PriceModel Price { get; set; }
+        public bool IsPublished { get; set; }
+        public DateTime PublishedOn { get; set; }
+        public List<AuthorModel>  Authors { get; set; }
+    }
+}
