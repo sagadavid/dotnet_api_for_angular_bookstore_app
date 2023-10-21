@@ -29,7 +29,10 @@ namespace dotnet_api_for_angular_bookstore_app.Controllers
           {
               return NotFound();
           }
-            return await _context.BookModel.ToListAsync();
+            return await _context.BookModel
+                .Include(x=>x.Authors)
+                .Include(x=>x.Price)
+                .ToListAsync();
         }
 
         // GET: api/Books/5
