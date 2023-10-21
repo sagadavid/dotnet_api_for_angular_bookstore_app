@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace dotnet_api_for_angular_bookstore_app.Migrations
 {
     [DbContext(typeof(BookstoreApiContext))]
-    [Migration("20231021145925_initDB")]
-    partial class initDB
+    [Migration("20231021152232_modelupdate")]
+    partial class modelupdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,10 +57,6 @@ namespace dotnet_api_for_angular_bookstore_app.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Authory")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsPublished")
                         .HasColumnType("bit");
