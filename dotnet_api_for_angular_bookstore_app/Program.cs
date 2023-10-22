@@ -2,10 +2,22 @@
 using BookstoreApi.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BookstoreApiContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BookstoreApiContext") ?? throw new InvalidOperationException("Connection string 'BookstoreApiContext' not found.")));
-builder.Services.AddDbContext<BookstoreApiContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("dotnet_api_for_angular_bookstore_appContext") ?? throw new InvalidOperationException("Connection string 'dotnet_api_for_angular_bookstore_appContext' not found.")));
+    options.UseSqlServer(builder.Configuration
+    .GetConnectionString("BookstoreApiContext") ?? throw new InvalidOperationException("Connection string 'BookstoreApiContext' not found.")));
+//builder.Services.AddDbContext<BookstoreApiContext>(options =>
+  //  options.UseSqlServer(builder.Configuration
+   // .GetConnectionString("dotnet_api_for_angular_bookstore_appContext") ?? throw new InvalidOperationException("Connection string 'dotnet_api_for_angular_bookstore_appContext' not found.")));
+builder.Services.AddCors(options => {
+    options.AddDefaultPolicy(
+        policy => {
+            policy
+            .AllowAnyHeader()
+            .AllowAnyOrigin()
+            .AllowAnyMethod();
 
+
+        });
+});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -25,7 +37,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseCors();
 app.MapControllers();
 
 app.Run();
