@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace dotnet_api_for_angular_bookstore_app.Migrations
 {
     [DbContext(typeof(BookstoreApiContext))]
-    [Migration("20231021152232_modelupdate")]
-    partial class modelupdate
+    [Migration("20231022093717_dbInit")]
+    partial class dbInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,21 +26,19 @@ namespace dotnet_api_for_angular_bookstore_app.Migrations
 
             modelBuilder.Entity("dotnet_api_for_angular_bookstore_app.Models.AuthorModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("BookModelId")
                         .HasColumnType("int");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -52,26 +50,25 @@ namespace dotnet_api_for_angular_bookstore_app.Migrations
 
             modelBuilder.Entity("dotnet_api_for_angular_bookstore_app.Models.BookModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
-                    b.Property<bool>("IsPublished")
+                    b.Property<bool?>("IsPublished")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PriceId")
+                    b.Property<int?>("PriceId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PublishedOn")
+                    b.Property<DateTime?>("PublishedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Tittle")
-                        .IsRequired()
+                    b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TotalPages")
+                    b.Property<int?>("TotalPages")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -83,17 +80,16 @@ namespace dotnet_api_for_angular_bookstore_app.Migrations
 
             modelBuilder.Entity("dotnet_api_for_angular_bookstore_app.Models.PriceModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
                     b.Property<string>("Currency")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Value")
+                    b.Property<int?>("Value")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -112,9 +108,7 @@ namespace dotnet_api_for_angular_bookstore_app.Migrations
                 {
                     b.HasOne("dotnet_api_for_angular_bookstore_app.Models.PriceModel", "Price")
                         .WithMany()
-                        .HasForeignKey("PriceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PriceId");
 
                     b.Navigation("Price");
                 });
